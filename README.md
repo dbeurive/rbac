@@ -48,7 +48,7 @@ $hierarchy->addSubRole("admin")
 
 // Test a given role.
 
-if ($hierarchy->cmp("super-admin", "admin") > 0) {
+if ($hierarchy->canAccessResource("super-admin", "admin")) {
     // "super-user" can access resources managed by "admin".
 }
 ```
