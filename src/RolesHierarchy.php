@@ -69,13 +69,13 @@ class RolesHierarchy
     }
 
     /**
-     * Compare two roles.
+     * Compare the positions of two roles within the hierarchy.
      * @param string $inRole First role to compare.
      * @param string $inOtherRole Second role to compare.
      * @return int The method return one of the following values:
-     *         -1: ($inRole < $inOtherRole)  $inRole subsumes permissions owned by $inOtherRole.
+     *         -1: ($inRole < $inOtherRole)  $inRole is "below" $inOtherRole.
      *         0:  ($inRole == $inOtherRole) $inRole and $inOtherRole are identical.
-     *         +1: ($inRole > $inOtherRole)  $inOtherRole subsumes permissions owned by $inRole.
+     *         +1: ($inRole > $inOtherRole)  $inOtherRole is "above" $inRole.
      * @throws \Exception
      */
     public function cmp($inRole, $inOtherRole) {

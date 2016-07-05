@@ -81,11 +81,11 @@ returns the value `true`. Otherwise it returns the value `false`.
 
 ## cmp($inRole, $inOtherRole)
 
-Compare two roles.
+Compare the positions of two roles within the hierarchy.
 
-* if <code>$inRole</code> subsumes permissions owned by `$inOtherRole`, then the method returns the value +1.
+* if `$inRole` is "above" `$inOtherRole`, then the method returns the value +1.
 * If `$inRole` and `$inOtherRole` are identical, then the method returns the value 0.
-* if `$inOtherRole` subsumes permissions owned by `$inRole`, then the method returns the value -1.
+* if `$inOtherRole` is "below" `$inRole`, then the method returns the value -1.
 
 ## toDot()
 
