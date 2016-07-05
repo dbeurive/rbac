@@ -12,7 +12,20 @@ In general terms:
   In role based access control, the role hierarchy defines an inheritance relationship among roles.
   Higher-level roles subsume permissions owned by sub-roles.
 
-Please note that, because Higher-level roles subsume permissions owned by sub-roles, role-based access control is unsuitable to manage individuals' ownerships over resources.
+> Please note that, because Higher-level roles subsume permissions owned by sub-roles, role-based access control is **unsuitable** to manage individuals'
+> ownerships over resources.
+
+# Installation
+
+Form the command line:
+
+    composer install dbeurive/rbac
+    
+Or, from within your file `composer.json`:
+
+    "require": {
+        "dbeurive/rbac": "*"
+    }
 
 # Synopsis
 
@@ -39,6 +52,8 @@ if ($hierarchy->cmp("super-admin", "admin") > 0) {
     // "super-user" can access resources managed by "admin".
 }
 ```
+
+Below, the graphical representation of the tree.
 
 ![Example](https://github.com/dbeurive/rbac/blob/master/doc/example.gif)
 
