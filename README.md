@@ -40,11 +40,13 @@ if ($hierarchy->cmp("super-admin", "admin") > 0) {
 }
 ```
 
+![Example](https://github.com/dbeurive/rbac/blob/master/doc/example.gif)
+
 # API overview
 
 ## construct($inToLevelRole)
 
-Construct a new hierarchy of roles. The argument <code>$inSuperAdmin</code> represents the name of the
+Construct a new hierarchy of roles. The argument <code>$inToLevelRole</code> represents the name of the
 role a the top of the hierarchy.
 
 ## addSubRole($inRole)
