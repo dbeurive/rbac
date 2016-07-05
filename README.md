@@ -19,7 +19,7 @@ In general terms:
 
 Form the command line:
 
-    composer install dbeurive/rbac
+    composer require dbeurive/rbac
     
 Or, from within your file `composer.json`:
 
