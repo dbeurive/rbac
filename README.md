@@ -61,7 +61,7 @@ Below, the graphical representation of the tree.
 
 ## construct($inToLevelRole)
 
-Construct a new hierarchy of roles. The argument <code>$inToLevelRole</code> represents the name of the
+Construct a new hierarchy of roles. The argument `$inToLevelRole` represents the name of the
 role a the top of the hierarchy.
 
 ## addSubRole($inRole)
@@ -72,15 +72,20 @@ Add a role to the level below the current level. The current level becomes the n
 
 Go back one level up from the current role.
 
+## canAccessResource($inRole, $inOtherRole)
+
+Test if a given role (`$inRole`) can access resources managed by another role (`$inOtherRole`).
+
+If the role `$inRole` can access the resources managed by the other role (`$inOtherRole`), then the method
+returns the value `true`. Otherwise it returns the value `false`.
+
 ## cmp($inRole, $inOtherRole)
 
-Test if a given role (<code>$inRole</code>) can access resources managed by another role (<code>$inOtherRole</code>).
+Compare two roles.
 
-* if <code>$inRole</code> subsumes permissions owned by <code>$inOtherRole</code>, then the method
-returns the value +1.
-* If <code>$inRole</code> and <code>$inOtherRole</code>, then the method returns the value 0.
-* if <code>$inOtherRole</code> subsumes permissions owned by <code>$inRole</code>, then the method
-returns the value -1.
+* if <code>$inRole</code> subsumes permissions owned by `$inOtherRole`, then the method returns the value +1.
+* If `$inRole` and `$inOtherRole` are identical, then the method returns the value 0.
+* if `$inOtherRole` subsumes permissions owned by `$inRole`, then the method returns the value -1.
 
 ## toDot()
 
@@ -88,6 +93,8 @@ Generate the [GraphViz](http://www.graphviz.org) representation of the hierarchy
 
 The method returns a string that represents the DOT representation of the tree.
 
-Assuming that you store this string in the file "<code>tree.dot</code>", then you can get the graphical
-representation of the tree with the following command: <code>dot -Tgif -Ograph tree.dot</code>
+Assuming that you store this string in the file `tree.dot`, then you can get the graphical
+representation of the tree with the following command:
+
+    dot -Tgif -Ograph tree.dot
 

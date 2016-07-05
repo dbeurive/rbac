@@ -69,13 +69,13 @@ class RolesHierarchy
     }
 
     /**
-     * Test if a given role ($inRole) can access resources managed by another role ($inOtherRole).
-     * @param string $inRole Given role that need to be tested.
-     * @param string $inOtherRole Other role.
+     * Compare two roles.
+     * @param string $inRole First role to compare.
+     * @param string $inOtherRole Second role to compare.
      * @return int The method return one of the following values:
-     *         -1: $inRole < $inOtherRole
-     *         0:  $inRole == $inOtherRole
-     *         +1: $inRole > $inOtherRole
+     *         -1: ($inRole < $inOtherRole)  $inRole subsumes permissions owned by $inOtherRole.
+     *         0:  ($inRole == $inOtherRole) $inRole and $inOtherRole are identical.
+     *         +1: ($inRole > $inOtherRole)  $inOtherRole subsumes permissions owned by $inRole.
      * @throws \Exception
      */
     public function cmp($inRole, $inOtherRole) {
@@ -95,6 +95,18 @@ class RolesHierarchy
             return 0;
         }
         return $rank->isAscendantOf($required) ? 1 : -1;
+    }
+
+    /**
+     * Test if a given role ($inRole) can access resources managed by another role ($inOtherRole).
+     * @param string $inRole Given role that need to access the resources.
+     * @param string $inOtherRole The role that manages the resources.
+     * @return bool If the role $inRole can access the resources managed by the other role ($inOtherRole), then the method
+     *         returns the value true. Otherwise it returns the value false.
+     * @throws \Exception
+     */
+    public function canAccessResource($inRole, $inOtherRole) {
+        return $this->cmp($inRole, $inOtherRole) >= 0;
     }
 
     /**

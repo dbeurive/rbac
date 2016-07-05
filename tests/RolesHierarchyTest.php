@@ -52,6 +52,23 @@ class RolesHierarchyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->__hierarchy->cmp("admin-orange", "admin-orange"));
         $this->assertEquals(0, $this->__hierarchy->cmp("user-bouygues", "user-bouygues"));
         $this->assertEquals(0, $this->__hierarchy->cmp("user-orange", "user-orange"));
+
+
+        $this->assertTrue($this->__hierarchy->canAccessResource("super-admin", "admin"));
+        $this->assertTrue($this->__hierarchy->canAccessResource("super-admin", "admin-bouygues"));
+        $this->assertTrue($this->__hierarchy->canAccessResource("super-admin", "user-bouygues"));
+        $this->assertTrue($this->__hierarchy->canAccessResource("super-admin", "admin-orange"));
+        $this->assertTrue($this->__hierarchy->canAccessResource("super-admin", "user-orange"));
+        $this->assertTrue($this->__hierarchy->canAccessResource("admin-bouygues", "user-bouygues"));
+        $this->assertTrue($this->__hierarchy->canAccessResource("admin-orange",   "user-orange"));
+
+        $this->assertFalse($this->__hierarchy->canAccessResource("admin", "super-admin"));
+        $this->assertFalse($this->__hierarchy->canAccessResource("admin-bouygues", "super-admin"));
+        $this->assertFalse($this->__hierarchy->canAccessResource("user-bouygues",  "super-admin"));
+        $this->assertFalse($this->__hierarchy->canAccessResource("admin-orange",   "super-admin"));
+        $this->assertFalse($this->__hierarchy->canAccessResource("user-orange",    "super-admin"));
+        $this->assertFalse($this->__hierarchy->canAccessResource("user-bouygues", "admin-bouygues"));
+        $this->assertFalse($this->__hierarchy->canAccessResource("user-orange",   "admin-bouygues"));
     }
 
     public function testToDot() {
