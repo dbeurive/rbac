@@ -30,6 +30,8 @@ Or, from within your file `composer.json`:
 # Synopsis
 
 ```php
+use dbeurive\Rbac\RolesHierarchy;
+
 // Specify the hierarchy of roles.
 
 $hierarchy = new RolesHierarchy("super-admin");
