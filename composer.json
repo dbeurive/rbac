@@ -1,5 +1,4 @@
 {
-  "version": "1.0.0",
   "name": "dbeurive/rbac",
   "description": "This package contains a basic implementation of Role Base Access Control",
   "license": "Private",

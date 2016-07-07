@@ -26,19 +26,28 @@ class RolesHierarchy
      * @var array Roles' index.
      */
     private $__index = [];
+    /**
+     * @var bool This flag indicates whether the hierarchy has been fully created or not.
+     */
+    private $__init = false;
 
     /**
      * Create a hierarchy of roles.
-     * @param string $inSuperAdmin Role's name.
+     * @param array $inHierarchy The hierarchy of roles.
      * @throws \Exception
      */
-    public function __construct($inSuperAdmin) {
-        if (! is_string($inSuperAdmin)) {
-            throw new \Exception("The given name is not a string!");
+    public function __construct($inHierarchyOrTopRole) {
+        if (is_array($inHierarchyOrTopRole)) {
+            $this->__tree = Tree::fromArray($inHierarchyOrTopRole, null, 'role', 'access');
+            $this->__currentRole = $this->__tree->getRoot();
+            $this->__index = $this->__tree->index(function ($x) { return $x; }, true);
+            $this->__init = true;
+        } elseif (is_string($inHierarchyOrTopRole)) {
+            $this->__tree = new Tree($inHierarchyOrTopRole);
+            $this->__currentRole = $this->__index[$inHierarchyOrTopRole] = $this->__tree->getRoot();
+        } else {
+            throw new \Exception("Invalid value for hierarchy' specification. Valid values are strings or arrays.");
         }
-
-        $this->__tree = new Tree($inSuperAdmin);
-        $this->__currentRole = $this->__index[$inSuperAdmin] = $this->__tree->getRoot();
     }
 
     /**
@@ -48,6 +57,10 @@ class RolesHierarchy
      * @throws \Exception
      */
     public function addSubRole($inRole) {
+        if ($this->__init) {
+            throw new \Exception("The hierarchy of roles has already been created!");
+        }
+
         if (! is_string($inRole)) {
             throw new \Exception("Given rank is not a string!");
         }

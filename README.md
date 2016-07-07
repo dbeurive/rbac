@@ -32,21 +32,21 @@ Or, from within your file `composer.json`:
 ```php
 use dbeurive\Rbac\RolesHierarchy;
 
-// Specify the hierarchy of roles.
+// Specify the hierarchy of roles using the builder
 
 $hierarchy = new RolesHierarchy("super-admin");
-$hierarchy->addSubRole("admin")
-            ->addSubRole("admin-bouygues")
-              ->addSubRole("user-bouygues")
-              ->up()
+$hierarchy
+    ->addSubRole("admin")
+        ->addSubRole("admin-bouygues")
+            ->addSubRole("user-bouygues")
             ->up()
-            ->addSubRole("admin-orange")
-              ->addSubRole("user-orange")
-              ->up()
+        ->up()
+        ->addSubRole("admin-orange")
+            ->addSubRole("user-orange")
             ->up()
-          ->up()
-            ->addSubRole("other-admin")->up()
-          ->up();
+        ->up()
+    ->up()
+    ->addSubRole("other-admin");
 
 // Test a given role.
 
@@ -54,6 +54,47 @@ if ($hierarchy->canAccessResource("super-admin", "admin")) {
     // "super-user" can access resources managed by "admin".
 }
 ```
+
+Please note that you can also specify the hierarchy through an array:
+
+```php
+$hierarchy = array(
+     'role'   => 'super-admin',
+     'access' => array(
+         array(
+             'role'   => 'admin',
+             'access' =>  array(
+                 array(
+                     'role'   => 'admin-bouygues',
+                     'access' => array(
+                         array(
+                             'role'   => 'user-bouygues',
+                             'access' => array()
+                         )
+                     )
+                 )
+             )
+         ),
+         array(
+             'role'   => 'admin-orange',
+             'access' => array(
+                 array(
+                     'role'   => 'user-orange',
+                     'access' => array()
+                 )
+             )
+         ),
+         array(
+             'role'   => 'other-admin',
+             'access' => array()
+         )
+     )
+);
+
+$this->__hierarchyArray = new RolesHierarchy($hierarchy); 
+```
+
+> NOTE: the key <code>access</code> ALWAYS points to an **array of arrays**.
 
 Below, the graphical representation of the tree.
 
