@@ -94,7 +94,7 @@ $hierarchy = array(
 $this->__hierarchyArray = new RolesHierarchy($hierarchy); 
 ```
 
-> NOTE: the key <code>access</code> ALWAYS points to an **array of arrays**.
+> NOTE: the key `access` ALWAYS points to an **array of arrays**.
 
 Below, the graphical representation of the tree.
 
@@ -102,10 +102,14 @@ Below, the graphical representation of the tree.
 
 # API overview
 
-## construct($inToLevelRole)
+## construct($inHierarchyOrTopRole)
 
-Construct a new hierarchy of roles. The argument `$inToLevelRole` represents the name of the
-role a the top of the hierarchy.
+Construct a new hierarchy of roles.
+
+The argument `$inHierarchyOrTopRole` may be a string or an array.
+
+* If `$inHierarchyOrTopRole` is a string: it represents the name of the role a the top of the hierarchy.
+* If `$inHierarchyOrTopRole` is an array: it represents the entire hierarchy.
 
 ## addSubRole($inRole)
 
